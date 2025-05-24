@@ -1,0 +1,13 @@
+create database if not exists daily_status;
+create table if not exists orders ( order_id bigint not null primary key,  current_status char(1) not null, status_endpoint varchar(200) not null, created_at timestamp not null default now(), updated_at timestamp  null);
+
+
+
+create table if not exists history ( id bigint not null primary key auto_increment, status char(
+1) not null, order_id bigint not null, created_at timestamp not null, index ord_idx (order_id), foreign key (order_id) references orders(order_id) );
+
+
+
+grant all privileges on daily_status.* to 'youruser'@'localhost';
+grant all privileges on daily_status.* to 'youruser'@'%';
+flush privileges;
